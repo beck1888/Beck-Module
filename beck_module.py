@@ -526,3 +526,9 @@ def update():
                 print_formatted("Module update failed. Version is still out of date.", 'light_red')
                 print("Details: ", e)
                 pass
+
+def play_frequency(frequency, duration, sample_rate=44100) -> None:
+    t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
+    waveform = 0.5 * np.sin(2 * np.pi * frequency * t)
+    sd.play(waveform, sample_rate)
+    sd.wait()
