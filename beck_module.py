@@ -512,23 +512,39 @@ class ChatGPT:
 
         return completion.choices[0].message.content
 
-
-### MAIN ###
-# Updater code
-def update():
-            """Updates the module to the latest version."""
-            try:
-                r = requests.get("https://raw.githubusercontent.com/beck1888/Beck_Module/main/beck_module.py")
-                with open("beck_module.py", "w") as f:
-                    f.write(r.content.decode())
-                print_formatted("Beck Module updated!", 'green')
-            except Exception as e:
-                print_formatted("Module update failed. Version is still out of date.", 'light_red')
-                print("Details: ", e)
-                pass
-
 def play_frequency(frequency, duration, sample_rate=44100) -> None:
+    """Plays a specified sinusoidal frequency for a specified duration."""
     t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
     waveform = 0.5 * np.sin(2 * np.pi * frequency * t)
     sd.play(waveform, sample_rate)
     sd.wait()
+
+def slot_machine_text(message: str, delay: float = 0.01) -> None:
+    raise NotImplementedError("Function still in development.")
+    """
+    Print rolling text on the screen.
+    """
+    uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    lowercase = "abcdefghijklmnopqrstuvwxyz"
+
+    Cursor.hide()
+
+    for char in message:
+        if char in uppercase:
+            for i in range(uppercase.find(char) + 1):
+                print(uppercase[i], end='\r', flush=True)
+                time.sleep(delay)
+            print(char, end='', flush=True)
+        elif char in lowercase:
+            for i in range(lowercase.find(char) + 1):
+                print(lowercase[i], end='\r', flush=True)
+                time.sleep(delay)
+            print(char, end='', flush=True)
+        else:
+            print(char, end='', flush=True)
+
+    Cursor.show()
+
+if __name__ == "__main__":
+    pass
+    # slot_machine_text("Hello, World!")
