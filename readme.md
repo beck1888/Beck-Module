@@ -25,6 +25,8 @@ The Beck Module is a collection of commonly used functions by Beck in his coding
 
     `wget https://raw.githubusercontent.com/beck1888/Beck_Module/main/beck_module.py`
 
+    *Notice, this module is made for MacOS and some features will not work on Windows, Linux, or other systems*
+
 3. Check `beck_module.py` and make sure you have all of its dependencies installed. You can install any of them using 
 
     `pip install package_name`
