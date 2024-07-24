@@ -1,6 +1,6 @@
 # curl -O https://raw.githubusercontent.com/beck1888/Beck_Module/main/beck_module.py
 
-# import beck_module as b
+# import beck_module as bm
 
 # Setting environment variables
 import os
@@ -485,7 +485,8 @@ def ask_for_confirmation(message: str, icon_path: str = None) -> bool:
             'display dialog "{}" buttons {{"No", "Yes"}} default button "Yes"'
         ).format(message)
 
-    return subprocess.check_output(["osascript", "-e", script]).decode("utf-8").strip().removeprefix("button returned:") == "Yes"
+    subprocess.run(["osascript", "-e", script], capture_output=True, check=True)
+    return subprocess.run(["osascript", "-e", script], capture_output=True, check=True).stdout.decode("utf-8").strip().removeprefix("button returned:") == b"Yes"
 
 # Interact with the OpenAI API
 class ChatGPT:
