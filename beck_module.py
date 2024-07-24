@@ -1,5 +1,7 @@
 # curl -O https://raw.githubusercontent.com/beck1888/Beck_Module/main/beck_module.py
 
+# import beck_module as b
+
 # Setting environment variables
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"  # Hide pygame support / welcome message
@@ -12,7 +14,7 @@ try:
     import importlib
     from mutagen.mp3 import MP3
     import numpy as np
-    # import os
+    # import os # Already imported
     from playsound import playsound
     import pygame
     import requests
@@ -488,13 +490,13 @@ def ask_for_confirmation(message: str, icon_path: str = None) -> bool:
 # Interact with the OpenAI API
 class ChatGPT:
     # Initialize the OpenAI API client
-    def __init__(self, api_key: str, bot_instructions: str, model: str="gpt-3.5-turbo") -> None:
+    def __init__(self, api_key: str, bot_instructions: str, model: str="gpt-4o-mini") -> None:
         self.api_key = api_key
         self.bot_instructions = bot_instructions
 
-        # For now, only support gpt-3.5-turbo
-        if model != "gpt-3.5-turbo":
-            raise ValueError("Unsupported model. Only gpt-3.5-turbo is currently supported.")
+        # For now, only support gpt-4o-mini
+        if model != "gpt-4o-mini":
+            raise ValueError("Unsupported model. Only gpt-4o-mini is currently supported.")
         self.model = model
 
     # Request a response from the OpenAI API with an input where the instructions are already configured
@@ -503,7 +505,7 @@ class ChatGPT:
         client = openai.OpenAI(api_key=self.api_key)
 
         completion = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": self.bot_instructions},
             {"role": "user", "content": input},
