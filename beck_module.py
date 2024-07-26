@@ -548,6 +548,47 @@ def slot_machine_text(message: str, delay: float = 0.01) -> None:
 
     Cursor.show()
 
-if __name__ == "__main__":
-    pass
-    # slot_machine_text("Hello, World!")
+class BetterFile:
+    """
+    A class to reduce boilerplate code when dealing with files.
+    """
+
+    def __init__(self, filename: str, read_into_memory: bool = True, ignore_errors: bool = False) -> None:
+        self.filename = filename
+        
+        if not ignore_errors:
+            if not check_if_file_exists(filename):
+                raise FileNotFoundError(f"File not found: {filename}")
+        
+        if read_into_memory:
+            contents = ""
+
+            with open(filename, "r") as f:
+                lines = []
+
+                for line in f:
+                    lines.append(line)
+
+                contents = "".join(lines)
+
+            self.contents = contents
+
+    def read(self) -> str:
+        return self.contents
+    
+    def write(self, contents: str) -> None:
+        with open(self.filename, "w") as f:
+            f.write(contents)
+
+    def append(self, contents: str) -> None:
+        with open(self.filename, "a") as f:
+            f.write(contents)
+
+    def delete(self) -> None:
+        os.remove(self.filename)
+
+    def rename(self, new_name: str) -> None:
+        os.rename(self.filename, new_name)
+
+    def hash(self) -> str:
+        return hashlib.sha256(self.contents.encode("utf-8")).hexdigest()
